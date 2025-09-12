@@ -1,0 +1,68 @@
+// ActionQueueProcessor.cs
+// Processes queued player actions each game tick for the Heel-Kawn Multiplayer Mod (stub/foundation).
+// In a real mod, called from HeelKawnMinimal.Update()
+
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace HeelKawnPlugin
+{
+    public static class ActionQueueProcessor
+    {
+        // Call this from HeelKawnMinimal.Update()
+        public static void TickAllPlayers()
+        {
+            foreach (var pdata in PlayerManager.Players.Values)
+            {
+                // Process one action per tick for fairness
+                if (pdata.ActionQueue.Count > 0)
+                {
+                    var action = pdata.ActionQueue.Dequeue();
+                    ProcessAction(pdata, action);
+                }
+            }
+        }
+
+        private static void ProcessAction(PlayerData player, PlayerAction action)
+        {
+            switch (action.Type)
+            {
+                case PlayerActionType.Move:
+                    // Arg example: "north", "east"
+                    var direction = action.Arg?.ToLowerInvariant();
+                    Vector2 newPos = player.Position;
+                    switch (direction)
+                    {
+                        case "north": newPos += Vector2.up; break;
+                        case "south": newPos += Vector2.down; break;
+                        case "east":  newPos += Vector2.right; break;
+                        case "west":  newPos += Vector2.left; break;
+                        // Optionally: handle "northeast", etc.
+                    }
+                    player.Position = newPos;
+                    WorldBoxAPIHelper.MoveVillager(player.Username, newPos);
+                    HeelKawnMinimal.Log?.LogInfo($"[ActionQueue] Moved {player.Username} {direction} to {newPos}");
+                    break;
+                case PlayerActionType.Farm:
+                    // TODO: Farm logic
+                    HeelKawnMinimal.Log?.LogInfo($"[ActionQueue] {player.Username} farmed at {player.Position}");
+                    break;
+                case PlayerActionType.Build:
+                    // TODO: Build logic
+                    HeelKawnMinimal.Log?.LogInfo($"[ActionQueue] {player.Username} attempted to build {action.Arg}");
+                    break;
+                case PlayerActionType.Fight:
+                    // TODO: Fight logic
+                    HeelKawnMinimal.Log?.LogInfo($"[ActionQueue] {player.Username} initiated fight");
+                    break;
+                case PlayerActionType.Respawn:
+                    // TODO: Respawn logic
+                    HeelKawnMinimal.Log?.LogInfo($"[ActionQueue] {player.Username} respawned");
+                    break;
+                default:
+                    HeelKawnMinimal.Log?.LogInfo($"[ActionQueue] {player.Username} unknown action");
+                    break;
+            }
+        }
+    }
+}
