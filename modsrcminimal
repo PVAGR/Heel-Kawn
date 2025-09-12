@@ -1,0 +1,53 @@
+// HeelKawnMinimal.cs
+// BepInEx plugin entry point for Heel-Kawn Multiplayer Mod (Tech Level I foundation).
+// Sets up logging and initializes TwitchBot stub.
+
+using BepInEx;
+using UnityEngine;
+
+namespace HeelKawnPlugin
+{
+    [BepInPlugin("pvagr.heelkawn.minimal", "Heel-Kawn Multiplayer Mod", "0.1.0")]
+    public class HeelKawnMinimal : BaseUnityPlugin
+    {
+        public static BepInEx.Logging.ManualLogSource Log;
+        private TwitchBot _twitchBot;
+
+        private void Awake()
+        {
+            Log = Logger;
+            ConfigManager.Bind(Config);
+
+            Log.LogInfo("[Heel-Kawn] Mod loaded!");
+
+            if (ConfigManager.CredentialsReady())
+            {
+                _twitchBot = gameObject.AddComponent<TwitchBot>();
+                _twitchBot.Initialize();
+                Log.LogInfo("[Heel-Kawn] TwitchBot initialized.");
+            }
+            else
+            {
+                Log.LogWarning("[Heel-Kawn] Twitch credentials missing in config. TwitchBot not started.");
+            }
+
+            // TODO: Hook into WorldBox update loop for action queue processing
+        }
+
+        private void Update()
+        {
+            // In a real implementation, call ActionQueueProcessor.TickAllPlayers() here.
+            // ActionQueueProcessor.TickAllPlayers();
+        }
+
+        private void OnDestroy()
+        {
+            if (_twitchBot != null)
+            {
+                _twitchBot.Disconnect();
+                Destroy(_twitchBot);
+            }
+            Log.LogInfo("[Heel-Kawn] Mod unloaded.");
+        }
+    }
+}
