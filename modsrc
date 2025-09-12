@@ -1,0 +1,54 @@
+````markdown
+# Heel-Kawn Multiplayer Mod – Tech Level I Foundation
+
+This folder contains the groundwork for the Heel-Kawn Multiplayer Mod for WorldBox, as described in the project’s Tech Tree Roadmap (see `/project-management/Tech-Tree-Roadmap.md`).
+
+---
+
+## Structure
+
+- **HeelKawnMinimal.cs**  
+  BepInEx plugin entry point. Initializes logging and the Twitch bot stub.
+
+- **TwitchBot.cs**  
+  Handles Twitch IRC chat integration (currently a stub). Listens for chat commands like `!join`, `!move`, `!pray`, etc., and dispatches them to the player manager.
+
+- **PlayerManager.cs**  
+  Manages creation, lookup, and actions of chat-linked “villagers.”
+
+- **WorldBoxAPIHelper.cs**  
+  Utility for spawning villagers, moving units, and assigning traits (stubbed with logs for now).
+
+- **VillageManager.cs**  
+  Handles villages, kingdoms, and basic diplomacy scaffolding.
+
+- **ConfigManager.cs**  
+  Loads Twitch credentials and mod options from config.
+
+---
+
+## Development Status (Tech Level I)
+
+- Twitch chat bot is a stub—expand with real IRC connection (see [TwitchLib](https://github.com/TwitchLib/TwitchLib)).
+- Player actions and WorldBox integration are not yet live—add reflection hooks to manipulate units in-game.
+- Villages and kingdoms are tracked in-memory only (no persistence).
+- No UI or overlays yet.
+
+---
+
+## Next Steps
+
+1. Implement a real Twitch IRC connection in `TwitchBot.cs`.
+2. Use reflection to spawn, move, and update villagers in WorldBox (`WorldBoxAPIHelper.cs`).
+3. Add persistence (JSON/SQLite) for villagers and kingdoms.
+4. Expand commands and actions for richer gameplay.
+
+---
+
+## References
+
+- [Heel-Kawn Universe Lore](../lore/Heel-Kawn-Universe.md)
+- [Gameplay Mechanics](../lore/Gameplay-Mechanics.md)
+- [Tech Tree Roadmap](../project-management/Tech-Tree-Roadmap.md)
+
+**This mod brings multiplayer, persistent villagers to WorldBox—controlled by your Twitch chat.**
