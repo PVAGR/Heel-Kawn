@@ -1,0 +1,37 @@
+// TwitchBot.cs
+// Twitch IRC bot for Heel-Kawn Multiplayer Mod (stub foundation).
+// Handles connection, listens for chat commands (!join, !move, !pray, etc.), and dispatches to PlayerManager.
+
+using System;
+using UnityEngine;
+
+namespace HeelKawnPlugin
+{
+    public class TwitchBot : MonoBehaviour
+    {
+        private bool _connected = false;
+
+        public void Initialize()
+        {
+            // TODO: Load credentials (OAuth/token, channel name) from config
+            Connect();
+        }
+
+        private void Connect()
+        {
+            // TODO: Implement real IRC connection (see TwitchLib or custom TCP)
+            _connected = true;
+            HeelKawnMinimal.Log?.LogInfo("[TwitchBot] Connected to Twitch IRC (stub).");
+        }
+
+        private void OnDestroy()
+        {
+            Disconnect();
+        }
+
+        public void Disconnect()
+        {
+            if (_connected)
+            {
+                // TODO: Disconnect from IRC
+                _
