@@ -1,0 +1,84 @@
+# Tech Tree Roadmap – Chronicles of Heel-Kawn
+
+This roadmap outlines the phased development path for the Heel-Kawn project, from the narrative proto-game to a fully automated, blockchain-enabled multiplayer mod for WorldBox.
+
+---
+
+## 🌱 Tech Level 0: Manual Proto-Game (Current Phase)
+
+**Objective:**  
+Validate that people will engage deeply with collaborative, lore-driven worldbuilding, using existing tools and minimal automation.
+
+**Features:**
+- Manual Discord/Google Docs for community and lore tracking
+- Twitch chat voting via Nightbot/StreamElements
+- Manual role assignment and in-game actions by the host
+- Daily live events narrated on stream
+
+**Tools:**  
+Twitch, Discord, Google Docs, Nightbot, Google Sheets
+
+---
+
+## ⚙️ Tech Level I: Basic Automation
+
+**Objective:**  
+Reduce manual overhead by automating core interactions between Twitch, Discord, and WorldBox.
+
+**Features:**
+- Custom Twitch/Discord bot for:
+    - `!join` (spawns villager, assigns code)
+    - `!pray` (tracks prayers for units)
+    - `!vote` (automates event voting)
+    - Auto Discord role assignment
+    - Basic villager tracking and action mapping
+- Basic save/load of player data (JSON or SQLite)
+
+---
+
+## 🔮 Tech Level II: Enhanced Stream Experience
+
+**Objective:**  
+Increase immersion and interaction with live overlays and richer in-game feedback.
+
+**Features:**
+- Stream overlay showing:
+    - Current kings/leaders
+    - Prayer/vote meters
+    - Live event ticker
+- Real-time in-game notifications for chat actions
+- Web dashboard for community stats and lore
+- Expanded Twitch bot features:
+    - Profession assignment
+    - Simple resource/currency (Krond) tracking
+
+---
+
+## 🏰 Tech Level III: Full WorldBox Integration
+
+**Objective:**  
+Deliver a persistent, highly automated multiplayer experience where Twitch viewers are fully integrated as villagers.
+
+**Features:**
+- BepInEx/Unity mod enables:
+    - Direct control: chat commands trigger AI actions (move, farm, build, fight, etc.)
+    - Real-time player-to-villager mapping
+    - Dynamic trait/magic/event assignment
+    - In-game voting systems and war declarations
+- Blockchain/NFT integration for unique player codes (optional)
+- Full session persistence, archival, and replay
+- Automated season/world archiving and wiki exports
+
+---
+
+## 🛤️ Long-Term Vision
+
+- Dedicated server support (always-on worlds)
+- Cross-session and cross-world player legacy
+- Marketplace for villager codes and in-game artifacts (PVA Bazaar integration)
+- Advanced diplomacy, trade, and player-driven governance systems
+- Rich lore wiki with automated history exports
+
+---
+
+**This tech tree will be updated as the project evolves. Each level is fully playable before advancing. Progress is tracked in `/project-management/Phase-0-Checklist.md`.**
