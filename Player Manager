@@ -1,0 +1,71 @@
+// PlayerManager.cs
+// Handles player creation, lookup, unique codes, and core action queueing for Heel-Kawn Multiplayer Mod
+// This is a stub/foundation. Expand with more actions, persistence, and stats over time.
+
+using System;
+using System.Collections.Generic;
+using System.Text;
+using UnityEngine;
+
+namespace HeelKawnPlugin
+{
+    public enum PlayerActionType { None, Move, Farm, Build, Fight, Respawn }
+
+    public class PlayerAction
+    {
+        public PlayerActionType Type;
+        public string Arg; // direction or build type
+        public DateTime EnqueuedUtc = DateTime.UtcNow;
+    }
+
+    public class PlayerData
+    {
+        public string Username;
+        public string Code;
+        public Vector2 Position = Vector2.zero;
+        public Queue<PlayerAction> ActionQueue = new Queue<PlayerAction>();
+        // Expand with stats, cooldowns, professions, etc.
+    }
+
+    public static class PlayerManager
+    {
+        private static readonly System.Random _rng = new System.Random();
+        public static readonly Dictionary<string, PlayerData> Players =
+            new Dictionary<string, PlayerData>(StringComparer.OrdinalIgnoreCase);
+
+        public static string GenerateUniqueCode()
+        {
+            const string chars = "ABCDEFGHIJKLMNPQRSTUVWXYZ123456789";
+            string code;
+            do
+            {
+                var sb = new StringBuilder(6);
+                for (int i = 0; i < 6; i++) sb.Append(chars[_rng.Next(chars.Length)]);
+                code = sb.ToString();
+            } while (Players.Values.Any(p => p.Code == code));
+            return code;
+        }
+
+        public static PlayerData GetOrNull(string user)
+        {
+            Players.TryGetValue(user, out var p); return p;
+        }
+
+        public static PlayerData EnsurePlayer(string user)
+        {
+            if (!Players.TryGetValue(user, out var p))
+            {
+                p = new PlayerData { Username = user, Code = GenerateUniqueCode(), Position = Vector2.zero };
+                Players[user] = p;
+                // TODO: spawn villager in game here (WorldBoxAPIHelper)
+            }
+            return p;
+        }
+
+        public static void QueueAction(PlayerData p, PlayerAction action)
+        {
+            p.ActionQueue.Enqueue(action);
+            // TODO: Tick and execute actions in main game loop
+        }
+    }
+}
