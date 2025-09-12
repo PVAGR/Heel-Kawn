@@ -1,0 +1,45 @@
+// ConfigManager.cs
+// Loads Twitch credentials and mod config for Heel-Kawn Multiplayer Mod (Tech Level I).
+
+using BepInEx.Configuration;
+
+namespace HeelKawnPlugin
+{
+    public static class ConfigManager
+    {
+        public static string TwitchUsername { get; private set; }
+        public static string TwitchOAuthToken { get; private set; }
+        public static string TwitchChannel { get; private set; }
+
+        public static void Bind(ConfigFile config)
+        {
+            TwitchUsername = config.Bind(
+                "Twitch",
+                "Username",
+                "",
+                "Twitch username for bot (required for chat integration)"
+            ).Value;
+
+            TwitchOAuthToken = config.Bind(
+                "Twitch",
+                "OAuthToken",
+                "",
+                "Twitch OAuth token (generate at https://twitchapps.com/tmi/)"
+            ).Value;
+
+            TwitchChannel = config.Bind(
+                "Twitch",
+                "Channel",
+                "",
+                "Twitch channel to join (do not include #)"
+            ).Value;
+        }
+
+        public static bool CredentialsReady()
+        {
+            return !string.IsNullOrWhiteSpace(TwitchUsername)
+                && !string.IsNullOrWhiteSpace(TwitchOAuthToken)
+                && !string.IsNullOrWhiteSpace(TwitchChannel);
+        }
+    }
+}
