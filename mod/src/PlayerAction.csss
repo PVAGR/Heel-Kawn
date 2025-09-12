@@ -1,0 +1,19 @@
+// PlayerAction.cs
+// Represents an action queued by a player in Heel-Kawn Multiplayer Mod.
+
+namespace HeelKawnPlugin
+{
+    public enum PlayerActionType
+    {
+        Move,
+        Pray,
+        Farm
+        // Add more actions as needed (e.g., Build, JoinVillage, etc.)
+    }
+
+    public class PlayerAction
+    {
+        public PlayerActionType Type;
+        public string Arg; // Optional argument (e.g., direction for Move)
+    }
+}
