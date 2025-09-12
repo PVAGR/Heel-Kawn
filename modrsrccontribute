@@ -1,0 +1,76 @@
+# Contributing to Heel-Kawn Multiplayer Mod
+
+Thank you for your interest in contributing to the Heel-Kawn Multiplayer Mod for WorldBox!
+
+This document outlines how to get started, guidelines for contributing, and the project’s conventions.
+
+---
+
+## Getting Started
+
+1. **Clone the Repository**
+   ```sh
+   git clone https://github.com/PVAGR/Heel-Kawn.git
+   ```
+
+2. **Set Up Environment**
+   - Install [BepInEx](https://github.com/BepInEx/BepInEx) (5.x) for WorldBox modding.
+   - Obtain a copy of WorldBox (Steam).
+   - Reference WorldBox assemblies in your C# project (`Assembly-CSharp.dll`, etc.).
+   - Use Visual Studio or Rider for best IntelliSense and debugging.
+
+3. **Build**
+   - Place source files in your BepInEx plugins folder or build to DLL and copy there.
+   - Launch WorldBox to test.
+
+4. **Twitch Integration**
+   - Generate a Twitch OAuth token: https://twitchapps.com/tmi/
+   - Set up your Twitch username and channel in the mod config (`BepInEx/config`).
+
+---
+
+## Conventions
+
+- Namespace: `HeelKawnPlugin`
+- Organize new features in their own files (e.g., `MagicSystem.cs`, `DiplomacyManager.cs`)
+- Stub out new systems with logging before implementing full logic.
+- Use clear, descriptive commit messages.
+
+---
+
+## Contribution Guidelines
+
+- **Issues & Suggestions:**  
+  Use [GitHub Issues](https://github.com/PVAGR/Heel-Kawn/issues) for bug reports, feature requests, and questions.
+
+- **Pull Requests:**  
+  - Fork the repo, create a branch, and submit your PR.
+  - Clearly describe your changes and reference related issues.
+  - Keep PRs focused—avoid unrelated feature creep.
+
+- **Coding Style:**  
+  - Use C# conventions (PascalCase for class/methods, camelCase for variables).
+  - Add XML comments for public methods/classes if possible.
+  - Prefer clarity over cleverness.
+
+- **Testing:**  
+  - Test your changes in-game whenever possible.
+  - Add log output for new systems to aid debugging.
+
+---
+
+## Roadmap
+
+See [`TechTreeRoadmap.md`](TechTreeRoadmap.md) for the staged feature plan.
+
+---
+
+## Community
+
+- Join the Discord (link in repo/README) for real-time discussion, playtesting, and lore.
+- Contribute to the living wiki and event logs!
+
+---
+
+Happy modding!  
+— PVAGR & the Heel-Kawn team
