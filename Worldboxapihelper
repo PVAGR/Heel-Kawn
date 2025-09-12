@@ -1,0 +1,39 @@
+// WorldBoxAPIHelper.cs
+// Stub for WorldBox API calls (spawning, moving, managing villagers).
+// For Tech Level I, logs actions instead of real API calls.
+
+using System;
+
+namespace HeelKawnPlugin
+{
+    public static class WorldBoxAPIHelper
+    {
+        // Spawns a villager for a player at a given position.
+        public static void SpawnVillager(PlayerData player, WBVector2 pos)
+        {
+            Logger.Info($"[WorldBoxAPI] Would spawn villager for {player.Username} at {pos}");
+            player.Position = pos;
+        }
+
+        // Moves a villager in the world.
+        public static void MoveVillager(PlayerData player, string direction)
+        {
+            Logger.Info($"[WorldBoxAPI] Would move villager {player.Username} ({player.Position}) to {direction}");
+            // No real movement in Tech Level I, just log
+        }
+
+        // Handles prayer actions.
+        public static void Pray(PlayerData player)
+        {
+            Logger.Info($"[WorldBoxAPI] {player.Username} prays to the gods!");
+            // Pray effects: none in Tech Level I
+        }
+
+        // Simulate farming
+        public static void Farm(PlayerData player)
+        {
+            Logger.Info($"[WorldBoxAPI] {player.Username} attempts to farm the land.");
+            // No real farming in Tech Level I
+        }
+    }
+}
