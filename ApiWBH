@@ -1,0 +1,35 @@
+// WorldBoxAPIHelper.cs
+// Utilities for interacting with WorldBox internals via reflection (stub).
+// Later: spawn villagers, move units, assign names/traits, etc.
+
+using System;
+using UnityEngine;
+
+namespace HeelKawnPlugin
+{
+    public static class WorldBoxAPIHelper
+    {
+        // Example: Spawn a villager at a given position
+        public static void SpawnVillager(string playerName, Vector2 pos)
+        {
+            // TODO: Use reflection to instantiate a WorldBox human/orc/etc. at pos
+            HeelKawnMinimal.Log?.LogInfo($"[WorldBoxAPIHelper] SpawnVillager called for {playerName} at {pos}");
+        }
+
+        // Example: Move a villager
+        public static void MoveVillager(string playerName, Vector2 to)
+        {
+            // TODO: Find villager by name/code and move them in-game
+            HeelKawnMinimal.Log?.LogInfo($"[WorldBoxAPIHelper] MoveVillager called for {playerName} to {to}");
+        }
+
+        // Example: Apply trait to a villager
+        public static void ApplyTrait(string playerName, string trait)
+        {
+            // TODO: Use reflection to grant trait to unit
+            HeelKawnMinimal.Log?.LogInfo($"[WorldBoxAPIHelper] ApplyTrait called for {playerName} trait: {trait}");
+        }
+
+        // Expand with more helpers as features are added
+    }
+}
