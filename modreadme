@@ -1,0 +1,82 @@
+# Heel-Kawn Multiplayer Mod for WorldBox
+
+> Bring your Twitch chat into WorldBox as villagers, lords, and heroes!
+
+---
+
+## What is this?
+
+Heel-Kawn is an experimental multiplayer mod for [WorldBox](https://store.steampowered.com/app/1206560/WorldBox/) that lets Twitch viewers join the game as villagers, interact via chat, and help shape the fate of the world. Inspired by the communal chaos of “Twitch Plays Pokémon” and the lore of the Heel-Kawn universe.
+
+---
+
+## Features (Tech Level I)
+
+- **Twitch Integration (Stub)**: Simulated Twitch chat commands (!join, !move, !pray, etc.); real IRC coming soon.
+- **Villager Management**: Each chat user gets a unique villager with a queue of actions.
+- **Basic Action Processing**: Players can queue actions (move, pray, farm) which are processed in-game.
+- **Village/Kingdom System**: Villagers grouped into villages and kingdoms (for lore and future diplomacy).
+- **WorldBox API Stubs**: Hooks for spawning, moving, and managing villagers (logs only for now).
+- **Config & Logging**: Loads Twitch credentials/config via BepInEx; robust info logging.
+
+See [`TechTreeRoadmap.md`](src/TechTreeRoadmap.md) for the planned progression.
+
+---
+
+## Installing
+
+1. **Install [BepInEx 5.x](https://github.com/BepInEx/BepInEx) for WorldBox.**
+2. **Copy all mod `*.cs` source files to your BepInEx `plugins/HeelKawn/` directory.**
+   - Or build the DLL and place it in `plugins/`
+3. **Configure Twitch:**  
+   On first run, edit the generated config in `BepInEx/config/pvagr.heelkawn.minimal.cfg`  
+   Fill in your Twitch username, OAuth token ([get one here](https://twitchapps.com/tmi/)), and channel.
+
+---
+
+## Usage
+
+- Launch WorldBox with BepInEx and the mod installed.
+- In Tech Level I, use the in-game console to simulate chat (TwitchBot.SimulateChat).
+- Players can `!join`, `!move north`, `!pray`, etc.
+- All actions are logged in the BepInEx console.
+
+---
+
+## Building
+
+- Open the project in Visual Studio or Rider.
+- Reference `Assembly-CSharp.dll` from your WorldBox install.
+- Build and deploy the DLL to your `BepInEx/plugins/` folder.
+
+---
+
+## Contributing
+
+See [`CONTRIBUTING.md`](src/CONTRIBUTING.md).
+
+---
+
+## Roadmap
+
+See [`TechTreeRoadmap.md`](src/TechTreeRoadmap.md) for milestones.
+
+---
+
+## Lore & Design
+
+- [Heel-Kawn Universe Lore](lore/Heel-Kawn-Universe.md)
+- [Gameplay Mechanics](lore/Gameplay-Mechanics.md)
+
+---
+
+## Credits
+
+- PVAGR (lead dev/worldbuilder)
+- WorldBox modding community
+
+---
+
+## License
+
+MIT – See `LICENSE.md`
