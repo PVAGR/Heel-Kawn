@@ -1,0 +1,77 @@
+// VillageManager.cs
+// Handles village and kingdom management, assignment, and basic diplomacy for Heel-Kawn Multiplayer Mod (stub/foundation).
+// In Tech Level I: just tracks villagers grouped by village and kingdom in memory.
+
+using System.Collections.Generic;
+
+namespace HeelKawnPlugin
+{
+    public class VillageData
+    {
+        public string Name;
+        public List<string> Members = new List<string>();
+        public string Kingdom;
+        // Future: resources, buildings, etc.
+    }
+
+    public class KingdomData
+    {
+        public string Name;
+        public List<string> Villages = new List<string>();
+        public List<string> Members = new List<string>(); // Villager usernames
+        // Future: diplomacy, wars, treasury, etc.
+    }
+
+    public static class VillageManager
+    {
+        public static Dictionary<string, VillageData> Villages = new Dictionary<string, VillageData>();
+        public static Dictionary<string, KingdomData> Kingdoms = new Dictionary<string, KingdomData>();
+
+        public static void AssignToVillage(string username, string villageName)
+        {
+            if (!Villages.TryGetValue(villageName, out var village))
+            {
+                village = new VillageData { Name = villageName };
+                Villages[villageName] = village;
+            }
+            if (!village.Members.Contains(username))
+                village.Members.Add(username);
+
+            var player = PlayerManager.GetOrNull(username);
+            if (player != null)
+                player.Village = villageName;
+        }
+
+        public static void AssignToKingdom(string username, string kingdomName)
+        {
+            if (!Kingdoms.TryGetValue(kingdomName, out var kingdom))
+            {
+                kingdom = new KingdomData { Name = kingdomName };
+                Kingdoms[kingdomName] = kingdom;
+            }
+            if (!kingdom.Members.Contains(username))
+                kingdom.Members.Add(username);
+
+            var player = PlayerManager.GetOrNull(username);
+            if (player != null)
+                player.Kingdom = kingdomName;
+        }
+
+        // Assigns a village to a kingdom
+        public static void BindVillageToKingdom(string villageName, string kingdomName)
+        {
+            if (!Villages.TryGetValue(villageName, out var village))
+                return;
+            if (!Kingdoms.TryGetValue(kingdomName, out var kingdom))
+            {
+                kingdom = new KingdomData { Name = kingdomName };
+                Kingdoms[kingdomName] = kingdom;
+            }
+            if (!kingdom.Villages.Contains(villageName))
+                kingdom.Villages.Add(villageName);
+            village.Kingdom = kingdomName;
+        }
+
+        // Future: methods for diplomacy, resource management, etc.
+    }
+}
