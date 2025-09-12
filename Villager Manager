@@ -1,0 +1,65 @@
+// VillageManager.cs
+// Manages villages, kingdoms, and their members in Heel-Kawn Multiplayer Mod (stub).
+// Handles creation, lookup, assignment, and kingdom diplomacy basics.
+
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace HeelKawnPlugin
+{
+    public class Village
+    {
+        public string Name;
+        public Vector2 Location;
+        public string Kingdom;
+        public List<string> Members = new List<string>(); // Player usernames
+
+        // Expand: resources, buildings, leader, etc.
+    }
+
+    public class Kingdom
+    {
+        public string Name;
+        public List<string> Villages = new List<string>(); // Village names
+        public string KingUsername;
+        public List<string> CouncilUsernames = new List<string>();
+        public bool AtWar = false;
+        public string AtWarWith = null;
+
+        // Expand: alliances, peace offers, treasury, etc.
+    }
+
+    public static class VillageManager
+    {
+        public static Dictionary<string, Village> Villages = new Dictionary<string, Village>();
+        public static Dictionary<string, Kingdom> Kingdoms = new Dictionary<string, Kingdom>();
+
+        public static Village CreateVillage(string name, Vector2 location, string kingdom)
+        {
+            var v = new Village { Name = name, Location = location, Kingdom = kingdom };
+            Villages[name] = v;
+            if (!Kingdoms.ContainsKey(kingdom))
+                Kingdoms[kingdom] = new Kingdom { Name = kingdom };
+            Kingdoms[kingdom].Villages.Add(name);
+            return v;
+        }
+
+        public static Kingdom GetOrCreateKingdom(string name)
+        {
+            if (!Kingdoms.ContainsKey(name))
+                Kingdoms[name] = new Kingdom { Name = name };
+            return Kingdoms[name];
+        }
+
+        public static void AssignPlayerToVillage(string username, string villageName)
+        {
+            if (Villages.TryGetValue(villageName, out var v))
+            {
+                if (!v.Members.Contains(username))
+                    v.Members.Add(username);
+            }
+        }
+
+        // Expand: movement, village upgrades, diplomacy, war declarations, etc.
+    }
+}
