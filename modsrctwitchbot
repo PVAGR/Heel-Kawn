@@ -1,0 +1,70 @@
+// TwitchBot.cs
+// Twitch chat bot integration for Heel-Kawn Multiplayer Mod (stub for Tech Level I).
+// Listens for chat commands (!join, !move, !pray, etc.) and queues actions for players.
+// In Tech Level I: this is only a stub and does not connect to real IRC.
+
+using UnityEngine;
+
+namespace HeelKawnPlugin
+{
+    public class TwitchBot : MonoBehaviour
+    {
+        public bool Connected { get; private set; }
+
+        // Call from HeelKawnMinimal to set up the bot
+        public void Initialize()
+        {
+            // In Tech Level I: stub, not a real IRC client
+            Connected = false;
+            HeelKawnMinimal.Log?.LogInfo("[TwitchBot] Stub initialized (no IRC connection).");
+        }
+
+        // For Tech Level II+: Connect to Twitch IRC here
+        public void Connect()
+        {
+            // TODO: Actual IRC implementation (TwitchLib or TCPClient)
+            Connected = true;
+            HeelKawnMinimal.Log?.LogInfo("[TwitchBot] (stub) Connected!");
+        }
+
+        public void Disconnect()
+        {
+            Connected = false;
+            HeelKawnMinimal.Log?.LogInfo("[TwitchBot] Disconnected.");
+        }
+
+        // Simulate receiving a chat command (for test/dev)
+        public void SimulateChat(string user, string message)
+        {
+            // Simple stub: parse command and queue action
+            var split = message.Trim().Split(' ');
+            var cmd = split[0].ToLowerInvariant();
+            var arg = (split.Length > 1) ? split[1] : null;
+
+            var player = PlayerManager.EnsurePlayer(user);
+
+            switch (cmd)
+            {
+                case "!join":
+                    WorldBoxAPIHelper.SpawnVillager(user, player.Position);
+                    HeelKawnMinimal.Log?.LogInfo($"[TwitchBot] {user} joined and spawned at {player.Position}");
+                    break;
+                case "!move":
+                    if (!string.IsNullOrWhiteSpace(arg))
+                    {
+                        PlayerManager.QueueAction(player, new PlayerAction { Type = PlayerActionType.Move, Arg = arg });
+                        HeelKawnMinimal.Log?.LogInfo($"[TwitchBot] {user} queued move {arg}");
+                    }
+                    break;
+                case "!pray":
+                    // TODO: implement prayer system
+                    HeelKawnMinimal.Log?.LogInfo($"[TwitchBot] {user} prayed");
+                    break;
+                // Expand with more commands as needed
+                default:
+                    HeelKawnMinimal.Log?.LogInfo($"[TwitchBot] {user} said: {message}");
+                    break;
+            }
+        }
+    }
+}
