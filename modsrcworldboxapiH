@@ -1,0 +1,34 @@
+// WorldBoxAPIHelper.cs
+// Helper for interacting with the WorldBox game API (via reflection or stubs).
+// Used for spawning, moving, and updating villagers in the Heel-Kawn Multiplayer Mod.
+
+using UnityEngine;
+
+namespace HeelKawnPlugin
+{
+    public static class WorldBoxAPIHelper
+    {
+        // Stub for spawning a villager in the game world
+        public static void SpawnVillager(string username, Vector2 position)
+        {
+            // In a real implementation, use reflection to call WorldBox's spawn logic.
+            HeelKawnMinimal.Log?.LogInfo($"[WorldBoxAPI] SpawnVillager: {username} at {position}");
+        }
+
+        // Stub for moving a villager in the game world
+        public static void MoveVillager(string username, Vector2 newPosition)
+        {
+            // Real implementation: find the villager's unit and update its position in-game.
+            HeelKawnMinimal.Log?.LogInfo($"[WorldBoxAPI] MoveVillager: {username} to {newPosition}");
+        }
+
+        // Stub for assigning a trait to a villager
+        public static void AssignTrait(string username, string trait)
+        {
+            // Real implementation: use reflection to add trait to the unit.
+            HeelKawnMinimal.Log?.LogInfo($"[WorldBoxAPI] AssignTrait: {username} gets trait {trait}");
+        }
+
+        // TODO: Add more methods for killing, respawning, inventory, etc.
+    }
+}
