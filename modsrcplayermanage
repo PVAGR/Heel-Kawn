@@ -1,0 +1,72 @@
+// PlayerManager.cs
+// Handles player registration, lookup, and action queues for Heel-Kawn Multiplayer Mod (stub).
+// Each Twitch username is a unique "villager" with a queue of actions.
+
+using System.Collections.Generic;
+
+namespace HeelKawnPlugin
+{
+    public enum PlayerActionType
+    {
+        Move,
+        Farm,
+        Build,
+        Fight,
+        Respawn
+        // Expand with more as needed
+    }
+
+    public class PlayerAction
+    {
+        public PlayerActionType Type;
+        public string Arg; // e.g. direction, building type, etc.
+    }
+
+    public class PlayerData
+    {
+        public string Username;
+        public string Code; // Unique code for this villager/player
+        public Queue<PlayerAction> ActionQueue = new Queue<PlayerAction>();
+        public string Village;
+        public string Kingdom;
+        public UnityEngine.Vector2 Position = UnityEngine.Vector2.zero;
+
+        // Expand: traits, inventory, cooldowns, etc.
+    }
+
+    public static class PlayerManager
+    {
+        public static Dictionary<string, PlayerData> Players = new Dictionary<string, PlayerData>();
+
+        public static PlayerData EnsurePlayer(string username)
+        {
+            if (!Players.TryGetValue(username, out var pdata))
+            {
+                pdata = new PlayerData
+                {
+                    Username = username,
+                    Code = GenerateCode(username)
+                };
+                Players[username] = pdata;
+            }
+            return pdata;
+        }
+
+        public static PlayerData GetOrNull(string username)
+        {
+            Players.TryGetValue(username, out var pdata);
+            return pdata;
+        }
+
+        public static void QueueAction(PlayerData player, PlayerAction action)
+        {
+            player.ActionQueue.Enqueue(action);
+        }
+
+        private static string GenerateCode(string username)
+        {
+            // Simple unique code: username + hash
+            return username + "_" + username.GetHashCode().ToString("X");
+        }
+    }
+}
