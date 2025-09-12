@@ -1,0 +1,75 @@
+````markdown
+# Heel-Kawn Multiplayer Mod – Tech Tree Roadmap
+
+This file tracks the staged development plan for the Heel-Kawn WorldBox multiplayer mod. Each “Tech Level” represents a milestone of new capabilities, complexity, and community features.
+
+---
+
+## Tech Level I: Foundation
+
+- [x] BepInEx plugin loads cleanly; logging working
+- [x] TwitchBot stub listens for commands (no real IRC yet)
+- [x] PlayerManager: players join, unique codes, action queues
+- [x] ActionQueueProcessor: stub tick loop for processing queued actions
+- [x] WorldBoxAPIHelper: stub for spawning/moving units (logs only)
+- [x] VillageManager: basic village/kingdom tracking
+- [x] ConfigManager: loads Twitch credentials + options
+- [x] README scaffold
+
+---
+
+## Tech Level II: Real Multiplayer
+
+- [ ] TwitchBot: full IRC integration (via TwitchLib or TCP)
+- [ ] Parse Twitch chat for !join, !move, !pray, !farm, !build, etc.
+- [ ] Spawn villagers in WorldBox on !join (via reflection)
+- [ ] Move villagers in-game on !move; update positions
+- [ ] Assign basic traits via chat (!trait X)
+- [ ] “Pray” for King/Lord (vote to elevate players)
+- [ ] Villager death/respawn cycle (via chat or in-game events)
+- [ ] Persist player/village/kingdom state to disk (JSON/SQLite)
+
+---
+
+## Tech Level III: RPG & Strategy Layer
+
+- [ ] Classes and Professions (Bila, Trot, etc.)
+- [ ] Skill progression, profession lock-in
+- [ ] Trait system: earn/buy traits (minor/average/major/divine)
+- [ ] Krond currency: earn, spend, transfer
+- [ ] Magic system: cast spells via chat/krond/donations
+- [ ] Kingdom diplomacy (alliances, war, peace, revolts)
+- [ ] Council/senate votes for war/elections
+
+---
+
+## Tech Level IV: Community & Persistence
+
+- [ ] Weekly world archiving, event log to wiki/discord
+- [ ] Discord bot integration (echo events, stats, major changes)
+- [ ] Map overlays/UI in mod for streamer and viewers
+- [ ] Web dashboard: real-time stats, villager/kingdom info
+- [ ] “Legendary deeds” system (track heroics, betrayals, etc.)
+
+---
+
+## Tech Level V: Endgame & Automation
+
+- [ ] Automated season resets, world generation, and event scripting
+- [ ] Custom biomes, disasters, and large-scale magic
+- [ ] AI-driven empires or gods for world dynamism
+- [ ] Streaming overlays/game events for audience
+- [ ] In-game event triggers for streamer chat
+
+---
+
+## Notes
+
+- Each “Tech Level” is a milestone! Don’t move on until previous level is stable for public playtesting.
+- Community feedback and lore integration are key at every stage.
+
+---
+
+**See also:**  
+- [Heel-Kawn Universe Lore](../lore/Heel-Kawn-Universe.md)  
+- [Gameplay Mechanics](../lore/Gameplay-Mechanics.md)
