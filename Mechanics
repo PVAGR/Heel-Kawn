@@ -1,0 +1,170 @@
+# Gameplay Mechanics – Heel-Kawn
+
+This document details the core mechanics for the Heel-Kawn universe, including classes, professions, traits, currency, magic, and the war system.
+
+---
+
+## 🪙 Krond: The Currency
+
+- **How to Earn:**  
+  - 25 Kr per kill (passive for each citizen in play)
+- **What Krond Buys:**  
+  - Magic spells (see below)
+  - Granting new traits to your villager
+  - Summoning additional citizens
+  - Triggering kingdom elections (against other human players)
+
+---
+
+## 🧑‍🌾 Classes & Professions
+
+### Classes
+
+Each player chooses a class, which shapes abilities and progression:
+
+- **Bila** (Warfare): Specializes in battles. Subclasses: Duelist, Battlemage, Strategist.
+    - *Duelist*: Renowned for 1v1/1v10 prowess; feared on the battlefield.
+    - *Strategist*: Can pan the map further for tactical overview.
+    - *Battlemage*: Casts destructive magic in war.
+
+- **Trot** (Intelligence): Research, knowledge, and spellcasting. (Subclasses to be defined)
+
+- **WeiWu** (Administration): Resource, logistics, city management. (Subclasses to be defined)
+
+- **Namaak** (Diplomacy): Trade, negotiation, alliances. (Subclasses to be defined)
+
+### Professions
+
+Each citizen starts with all skills at 0; you can focus on any area.  
+- At 100+ skill, you are locked into that profession (up to 2 allowed).
+
+**Professions List:**
+- Boatsman (boat building/sailing)
+- Trader (commerce)
+- Smith (crafting weapons/armor)
+- Healer (medicine/herbs)
+- Builder (simple homes to castles/walls)
+- Cook (food hunting, recipes, buffs)
+- Hauler (war/trade logistics)
+- Mercenary (combat for hire)
+- Academic (library research, technology)
+- Nomad (sells skills, no allegiance)
+- Cartographer (mapping world, selling maps)
+
+---
+
+## 🧬 Traits
+
+**Tiers:** Minor, Average, Major, Divine
+
+| Tier     | Cost (Kr) | Examples                                                                                  |
+|----------|-----------|-------------------------------------------------------------------------------------------|
+| Minor    | 250       | Attractive, Honest, Agile, Pacifist, Wise, Greedy, Pyromaniac, Tiny, Cold Aura           |
+| Average  | 300       | Ambitious, Lucky, Fast, Strong, Fire/Acid/Freeze Proof, Venomous, Veteran, Bloodlust      |
+| Major    | 400       | Blessed, DragonSlayer, Genius, Regeneration, Death Bomb, Immune, Cursed, Burning Feet     |
+| Divine   | 550       | Immortal, Super Health, Death Nuke, Madness, Healing Aura                                 |
+
+*Each trait enhances or alters your villager’s stats and abilities.*
+
+---
+
+## ✨ Magic System
+
+Magic can be cast with Krond or donations.
+
+**Spell Tiers:**
+
+- **Trivial (2000 Kr / $5)**
+    - Create small land/river
+    - Summon 50 citizens
+    - Summon 5 magical creatures
+    - Place resources (limit 10)
+    - Grant a power/trait to 1 citizen
+    - 5 grenades, 1 napalm, 3 bombs, 5 TNT/landmine/water bomb
+    - Enforce “Inspiration,” “Friendship,” or “Spite” once
+
+- **Profound (3000 Kr / $10)**
+    - Large land/river creation
+    - Summon 200 citizens/15 magical creatures
+    - 30 resources
+    - 10 grenades, 3 napalm, 5 bombs, 1 antimatter, Robot Santa
+    - Grant 3 powers/traits (or to 3 citizens)
+    - Enforce 2 inspirations
+
+- **Significant (3500 Kr / $15)**
+    - Continent-scale land/biome
+    - Summon 500 citizens/20 magical creatures
+    - 30 resources, 10 grenades, 3 napalm, 5 bombs, 1 antimatter, Robot Santa
+    - Grant 3 powers/traits (to 3 citizens or 3 to one)
+    - Enforce all 3 inspirations
+
+- **Cataclysmic (5000 Kr / $20)**
+    - World-scale land/biome
+    - Summon 1000 citizens/40 magical creatures
+    - 60 resources, 20 grenades, 5 napalm, 10 bombs, 2 antimatter, 3 Robot Santa
+    - Grant 6 powers/traits (to 6 citizens or 6 to one)
+    - Change world biome; flip “Infinity Coin”; gray goo; 3 meteors; 2 bowling balls; 1 Tsar Bomba; Crabzilla for 30sec
+
+---
+
+## ⚔️ War System
+
+Only the ruler can declare war, and it must be approved through a process:
+
+1. **King’s Council Vote:**  
+   - If passed, proceed to next step.
+2. **Senate Vote:**  
+   - Lords of each village must travel (time-based) to capital for the vote.
+   - Votes may be weighted (e.g., by war wins, loyalty, kills).
+3. **Declaration:**  
+   - If vote passes, Grand Emisar notifies defender.
+   - Failure to follow this allows revolts.
+
+**Battle Preparation:**
+- Quotas for lords to muster armies
+- Army gathering at a chosen site
+- Battalion and hierarchy assignment:  
+  *BattleMaster → Commanders → Captains → Sarj (Sergeants) → Soldiers*
+
+**Battlefield Rules:**
+- Once battle begins, it’s open/chaotic (anarchy)
+- “Grunts” (normal citizens) can turn the tide
+- Notable deeds are chronicled for history
+
+---
+
+## 🏰 Kingdom & Diplomacy
+
+- Kings/players can:
+    - Declare war
+    - Sue for peace
+    - Form alliances
+    - Remain neutral
+- Diplomacy and major actions are documented in the Atlas of Prometheus and Discord
+
+---
+
+## 🗺️ The World
+
+- First world: **Prometheus**  
+    - Two continents: BayMin (NW), Cythera (SE)
+    - “The Crossing” connects them
+    - Map divided into coordinate grid for events/commands
+
+---
+
+## 📜 Historical Documentation
+
+- Each week-long session is a chapter in the world’s saga
+- All major events, battles, and character arcs are logged in the living wiki (Google Doc) and Discord
+
+---
+
+## 🎲 Inspiration
+
+- Inspired by DnD, Game of Thrones, Crusader Kings, Bannerlord, MapWars
+- “You are not just playing a game. You are conducting an orchestra of chaos and story.”
+
+---
+
+**For full lore, see `Heel-Kawn-Universe.md`. For development roadmap, see `../project-management/Tech-Tree-Roadmap.md`.**
