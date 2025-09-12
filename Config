@@ -1,0 +1,37 @@
+// ConfigManager.cs
+// Handles loading and saving configuration for the Heel-Kawn Multiplayer Mod (stub).
+// Stores Twitch credentials, channel, game options, and mod settings.
+
+using BepInEx.Configuration;
+using System.IO;
+
+namespace HeelKawnPlugin
+{
+    public static class ConfigManager
+    {
+        public static ConfigEntry<string> TwitchUsername;
+        public static ConfigEntry<string> TwitchOAuth;
+        public static ConfigEntry<string> TwitchChannel;
+
+        public static void Bind(ConfigFile config)
+        {
+            TwitchUsername = config.Bind("Twitch", "Username", "",
+                "Twitch bot account username (required for chat integration)");
+            TwitchOAuth = config.Bind("Twitch", "OAuthToken", "",
+                "Twitch bot OAuth token (generate at https://twitchapps.com/tmi/)");
+            TwitchChannel = config.Bind("Twitch", "Channel", "",
+                "Twitch channel to join (without #)");
+
+            // Future: bind more game/mod options here (Krond rates, debug, etc.)
+        }
+
+        public static bool CredentialsReady()
+        {
+            return !string.IsNullOrWhiteSpace(TwitchUsername.Value)
+                && !string.IsNullOrWhiteSpace(TwitchOAuth.Value)
+                && !string.IsNullOrWhiteSpace(TwitchChannel.Value);
+        }
+
+        // Future: Save additional mod settings to persistent storage as needed
+    }
+}
