@@ -1,0 +1,40 @@
+// PlayerManager.cs
+// Manages player records and actions for Heel-Kawn Multiplayer Mod.
+// This class is essential for coordinating all Twitch players, ensuring each one has a persistent PlayerData entry, and handling action queues.
+
+using System.Collections.Generic;
+
+namespace HeelKawnPlugin
+{
+    public static class PlayerManager
+    {
+        private static Dictionary<string, PlayerData> players = new Dictionary<string, PlayerData>();
+
+        // Ensure a PlayerData exists for the username, and return it.
+        public static PlayerData EnsurePlayer(string username)
+        {
+            if (!players.ContainsKey(username))
+                players[username] = new PlayerData(username);
+            return players[username];
+        }
+
+        // Get PlayerData by username, or null if not found.
+        public static PlayerData GetOrNull(string username)
+        {
+            players.TryGetValue(username, out var player);
+            return player;
+        }
+
+        // Queue an action for a player.
+        public static void QueueAction(PlayerData player, PlayerAction action)
+        {
+            player.ActionQueue.Add(action);
+        }
+
+        // Enumerate all usernames.
+        public static IEnumerable<string> AllUsernames()
+        {
+            return players.Keys;
+        }
+    }
+}
