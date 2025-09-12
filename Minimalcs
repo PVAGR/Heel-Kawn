@@ -1,0 +1,63 @@
+// HeelKawnMinimal.cs
+// Minimal BepInEx plugin entry point for the Heel-Kawn Multiplayer Mod (Tech Level I stub)
+// Initializes logging, config, and a placeholder TwitchBot. Wire up additional systems as files are added.
+
+using BepInEx;
+using BepInEx.Logging;
+using UnityEngine;
+
+namespace HeelKawnPlugin
+{
+    [BepInPlugin(PluginGuid, PluginName, PluginVersion)]
+    [BepInProcess("worldbox.exe")]
+    public class HeelKawnMinimal : BaseUnityPlugin
+    {
+        public const string PluginGuid = "pvabazaar.heelkawn.multiplayer";
+        public const string PluginName = "Heel-Kawn Multiplayer";
+        public const string PluginVersion = "0.1.0";
+
+        public static ManualLogSource Log;
+        public static HeelKawnMinimal Instance;
+
+        public static TwitchBot Bot;
+
+        private void Awake()
+        {
+            Instance = this;
+            Log = Logger;
+
+            // TODO: Bind config here once config system is added
+
+            // Initialize TwitchBot (stub) - will be expanded later
+            Bot = gameObject.AddComponent<TwitchBot>();
+            Bot.Initialize();
+
+            Log.LogInfo($"[{PluginName}] v{PluginVersion} initialized.");
+        }
+
+        private void Update()
+        {
+            // Future: player/villager ticking, command processing, event updates
+        }
+
+        private void OnDestroy()
+        {
+            Bot?.Disconnect();
+        }
+    }
+}
+
+// --- TwitchBot stub (expand in its own file later) ---
+public class TwitchBot : MonoBehaviour
+{
+    public void Initialize()
+    {
+        // TODO: Connect to Twitch IRC, handle commands like !join, !move, etc.
+        HeelKawnPlugin.HeelKawnMinimal.Log?.LogInfo("TwitchBot initialized (stub).");
+    }
+
+    public void Disconnect()
+    {
+        // TODO: Clean up connections
+    }
+}
