@@ -1,0 +1,25 @@
+# Heel-Kawn Multiplayer Mod – Changelog
+
+All notable changes to this project will be documented in this file.
+
+---
+
+## [0.1.0] – Tech Level I Foundation (2025-09-12)
+- Initial BepInEx plugin (`HeelKawnMinimal.cs`) with logging and stub TwitchBot.
+- TwitchBot parses basic chat commands (`!join`, `!move`, `!pray`) (stub only, no real IRC).
+- `PlayerManager`: player registry, unique codes, action queue, join/move commands.
+- `VillageManager`: basic village and kingdom tracking, assignment stubs.
+- `WorldBoxAPIHelper`: stubs for spawning/moving villagers (logs only).
+- `ActionQueueProcessor`: action tick loop for queued moves (no in-game integration yet).
+- `ConfigManager`: loads Twitch credentials and config.
+- Project structure and roadmap docs (`README.md`, `TechTreeRoadmap.md`).
+- Contribution guide (`CONTRIBUTING.md`).
+
+---
+
+## [Unreleased]
+- Tech Level II: Real Twitch IRC multiplayer.
+- Action-driven villager spawning/movement in WorldBox.
+- Player persistence and more extensive kingdom logic.
+- Expanded commands: farming, building, trait/prayer system.
+- See [`TechTreeRoadmap.md`](TechTreeRoadmap.md) for next planned features.
