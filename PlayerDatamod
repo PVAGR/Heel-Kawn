@@ -1,0 +1,21 @@
+// PlayerData.cs
+// Stores player state for Heel-Kawn Multiplayer Mod.
+// This class is necessary to track each player's position and queued actions, enabling persistent multiplayer interactions.
+
+using System.Collections.Generic;
+
+namespace HeelKawnPlugin
+{
+    public class PlayerData
+    {
+        public string Username; // The unique name of the player.
+        public WBVector2 Position; // Player's current position in the world.
+        public List<PlayerAction> ActionQueue = new List<PlayerAction>(); // Actions the player wants to perform.
+
+        public PlayerData(string username)
+        {
+            Username = username;
+            Position = new WBVector2(0, 0);
+        }
+    }
+}
