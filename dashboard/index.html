@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Heel-Kawn Dashboard</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #181c24; color: #f3f3f3; margin: 0; padding: 0; }
+    header { background: #2b3243; padding: 1rem; text-align: center; }
+    h1 { margin: 0; font-size: 2rem; }
+    main { padding: 2rem; max-width: 900px; margin: auto; }
+    section { margin-bottom: 2rem; }
+    h2 { color: #7ecfff; }
+    pre { background: #23283a; padding: 1rem; border-radius: 8px; overflow-x: auto; }
+    .card { background: #23283a; border-radius: 8px; padding: 1rem; margin-bottom: 1rem; }
+    .flex { display: flex; gap: 2rem; flex-wrap: wrap; }
+    .flex > .card { flex: 1 1 300px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Heel-Kawn Live Dashboard</h1>
+    <p>Real-time stats, events, and world management</p>
+  </header>
+  <main>
+    <section>
+      <h2>Players</h2>
+      <div id="players" class="flex"></div>
+    </section>
+    <section>
+      <h2>Villages</h2>
+      <div id="villages" class="flex"></div>
+    </section>
+    <section>
+      <h2>Professions</h2>
+      <div id="professions" class="flex"></div>
+    </section>
+    <section>
+      <h2>Event History</h2>
+      <pre id="events">Loading...</pre>
+    </section>
+    <section>
+      <h2>Admin Controls</h2>
+      <form id="announceForm" style="margin-bottom:1rem;">
+        <input type="text" id="announceMsg" placeholder="Announcement message" style="width:60%" required>
+        <input type="password" id="adminToken" placeholder="Admin Token" style="width:20%" required>
+        <button type="submit">Send Announcement</button>
+      </form>
+      <div id="announceResult"></div>
+    </section>
+  </main>
+  <script>
+    async function fetchJson(url) {
+      const res = await fetch(url);
+      if (!res.ok) return null;
+      return await res.json();
+    }
+    async function loadPlayers() {
+      const data = await fetchJson('/api/players');
+      const el = document.getElementById('players');
+      el.innerHTML = '';
+      if (!data) { el.innerHTML = '<div class="card">No data.</div>'; return; }
+      Object.values(data).forEach(player => {
+        el.innerHTML += `<div class="card"><b>${player.Username}</b><br>Code: ${player.UniqueCode}<br>Villager: ${player.VillagerId}</div>`;
+      });
+    }
+    async function loadVillages() {
+      const data = await fetchJson('/api/villages');
+      const el = document.getElementById('villages');
+      el.innerHTML = '';
+      if (!data) { el.innerHTML = '<div class="card">No data.</div>'; return; }
+      Object.values(data).forEach(v => {
+        el.innerHTML += `<div class="card"><b>${v.Name}</b><br>Mayor: ${v.Mayor}<br>Members: ${v.Members.join(', ')}<br>Resources: ${v.Resources}</div>`;
+      });
+    }
+    async function loadProfessions() {
+      const data = await fetchJson('/api/professions');
+      const el = document.getElementById('professions');
+      el.innerHTML = '';
+      if (!data) { el.innerHTML = '<div class="card">No data.</div>'; return; }
+      Object.entries(data).forEach(([player, prof]) => {
+        el.innerHTML += `<div class="card"><b>${player}</b><br>Profession: ${prof}</div>`;
+      });
+    }
+    async function loadEvents() {
+      const data = await fetchJson('/api/events');
+      const el = document.getElementById('events');
+      if (!data) { el.textContent = 'No data.'; return; }
+      el.textContent = data.join('\n');
+    }
+    function refreshAll() {
+      loadPlayers();
+      loadVillages();
+      loadProfessions();
+      loadEvents();
+    }
+    setInterval(refreshAll, 3000);
+    refreshAll();
+
+    // Admin: Send announcement
+    document.getElementById('announceForm').onsubmit = async function(e) {
+      e.preventDefault();
+      const msg = document.getElementById('announceMsg').value;
+      const token = document.getElementById('adminToken').value;
+      const res = await fetch('/api/admin/announce', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-Admin-Token': token },
+        body: JSON.stringify({ message: msg })
+      });
+      const text = await res.text();
+      document.getElementById('announceResult').textContent = text;
+      if (res.ok) {
+        document.getElementById('announceMsg').value = '';
+      }
+    }
+  </script>
+</body>
+</html>

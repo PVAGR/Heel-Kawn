@@ -1,5 +1,6 @@
 # The Heel-Kawn Universe
 
+<<<<<<< HEAD
 Welcome to the lore foundation for the Heel-Kawn Multiplayer Mod! This universe is a blend of mythic chaos, emergent storytelling, and collaborative legend-making. The world is shaped by the actions, prayers, and ambitions of its villagers—your Twitch chat.
 
 ---
@@ -53,3 +54,22 @@ Heel-Kawn is not just a mod—it is a "machine for making legends." Every action
 All players are invited to create stories, write village histories, or propose new mechanics. Open an issue or PR!
 
 ---
+=======
+Welcome to Prometheus, a living world shaped by the will of its people and the chaos of the gods. The Heel-Kawn universe is a persistent, evolving fantasy realm where every player becomes a villager, a hero, or a legend.
+
+## The World
+Prometheus is divided into two great continents, BayMin and Cythera, separated by the Crossing. Each continent is home to unique cultures, resources, and mysteries.
+
+## The Ages
+- **Age of Dawn:** The world is formed, and the first villagers awaken.
+- **Age of Kings:** Kingdoms rise, and the first rulers are crowned.
+- **War of the Twin Rivers:** Factions clash for control of the land.
+
+## How to Play
+1. Join the Twitch stream and type `!join` to become a villager.
+2. Use chat commands to move, farm, build, and interact with the world.
+3. Form alliances, found villages, and vote on world-changing events.
+4. Your actions are recorded in the living history of Prometheus.
+
+Every week-long session is a new chapter in the saga. Shape your destiny and leave your mark on the world!
+>>>>>>> 14731da (Auto-connect heelkawn bot to pvagames Twitch channel; config and logging improvements)

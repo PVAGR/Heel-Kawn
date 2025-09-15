@@ -1,9 +1,9 @@
 # Heel-Kawn WorldBox Multiplayer Mod
-## Project Overview
-Heel-Kawn is a community-driven multiplayer mod for WorldBox, designed to create a living, evolving world shaped by player actions, streaming events, and collaborative storytelling. 
 
-### Vision
-To build a persistent, lore-rich universe where players, streamers, and viewers interact in real time, influencing the world’s narrative, politics, and technological progress.
+**A community-driven, narrative multiplayer experience built on WorldBox. Live, breathe, and shape history together.**
+
+## Project Overview
+Heel-Kawn is a persistent, lore-rich universe where players, streamers, and viewers interact in real time, influencing the world’s narrative, politics, and technological progress.
 
 ### Current Phase: Phase 0 – Narrative Proto-Game
 We are in the pre-production phase, focusing on worldbuilding, community setup, and prototyping core mechanics.
@@ -26,6 +26,7 @@ We are in the pre-production phase, focusing on worldbuilding, community setup, 
 
 ---
 *Let’s build the Heel-Kawn world together!*
+<<<<<<< HEAD
 # Heel-Kawn
 Description: A community-driven, narrative multiplayer experience built on WorldBox. Live, breathe, and shape history together.
 Excellent. This is the perfect way to think about a project of this scale. Using GitHub is a non-negotiable, critical best practice for modern software development, especially for a complex, collaborative project like Heel-Kawn.
@@ -336,3 +337,5 @@ We are building this in the open! Contributions are welcome.
 ---
 
 *"The Age of Dawn awaits."*
+=======
+>>>>>>> 14731da (Auto-connect heelkawn bot to pvagames Twitch channel; config and logging improvements)
