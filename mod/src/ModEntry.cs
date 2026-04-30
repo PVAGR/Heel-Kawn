@@ -1,20 +1,24 @@
 // ModEntry.cs
-// Main entry point for Heel-Kawn WorldBox Multiplayer Mod
+// Main entry point for Heel-Kawn WorldBox Multiplayer Mod - Phase 4 Platform & Marketplace
 
 using BepInEx;
+using BepInEx.Logging;
 using System;
+using System.Collections.Generic;
 
 namespace HeelKawnMod
 {
-    [BepInPlugin("heelkawn.mod", "Heel-Kawn Multiplayer Mod", "0.2.0")]
+    [BepInPlugin("heelkawn.mod", "Heel-Kawn Multiplayer Mod", "4.0.0")]
     public class ModEntry : BaseUnityPlugin
     {
         private TwitchIntegration twitchIntegration;
         private PlayerManager playerManager;
         private VillageManager villageManager;
         private ProfessionManager professionManager;
-        private VotingManager votingManager;
         private SeasonalEvents seasonalEvents;
+        private BlockchainManager blockchainManager;
+        
+        private ManualLogSource modLogger;
 
         private ConfigEntry<string> channelConfig;
         private ConfigEntry<string> botUsernameConfig;
@@ -23,15 +27,21 @@ namespace HeelKawnMod
 
         private void Awake()
         {
-            Logger.LogInfo("Heel-Kawn Multiplayer Mod loaded.");
+            // Initialize logger
+            modLogger = Logger;
+            HeelKawnMod.Logger.Initialize(modLogger);
+
+            modLogger.LogInfo("Heel-Kawn Multiplayer Mod v4.0.0 (Phase 4: Platform & Marketplace) loaded.");
+            
+            // Initialize managers
             playerManager = new PlayerManager();
             villageManager = new VillageManager();
             professionManager = new ProfessionManager();
-            votingManager = new VotingManager();
             seasonalEvents = new SeasonalEvents();
+            blockchainManager = new BlockchainManager();
             twitchIntegration = new TwitchIntegration();
 
-            // Use heelkawn bot credentials, but control pvagames channel
+            // Load configuration
             var botUsername = Config.TryGetEntry("TwitchBot", "BotUsername")?.Value ?? "heelkawn";
             var oauthToken = Config.TryGetEntry("TwitchBot", "OAuthToken")?.Value ?? "";
             var channel = Config.TryGetEntry("TwitchUser", "Channel")?.Value ?? "pvagames";
@@ -39,14 +49,15 @@ namespace HeelKawnMod
 
             SetLogLevel(logLevelConfig.Value);
 
+            // Handle config changes
             Config.SettingChanged += (sender, args) =>
             {
-                Logger.LogInfo($"Config changed: {args.ChangedSetting.Definition}" );
+                modLogger.LogInfo($"Config changed: {args.ChangedSetting.Definition}");
                 if (args.ChangedSetting.Definition.Key == "LogLevel")
                     SetLogLevel(logLevelConfig.Value);
                 if (args.ChangedSetting.Definition.Section == "TwitchBot" || args.ChangedSetting.Definition.Section == "TwitchUser")
                 {
-                    Logger.LogInfo("Reloading Twitch connection with new config...");
+                    modLogger.LogInfo("Reloading Twitch connection with new config...");
                     try
                     {
                         twitchIntegration.Disconnect();
@@ -57,11 +68,12 @@ namespace HeelKawnMod
                     }
                     catch (Exception ex)
                     {
-                        Logger.LogError($"Error reconnecting Twitch: {ex.Message}");
+                        modLogger.LogError($"Error reconnecting Twitch: {ex.Message}");
                     }
                 }
             };
 
+            // Connect to Twitch
             try
             {
                 twitchIntegration.OnChatCommand += HandleChatCommand;
@@ -69,98 +81,113 @@ namespace HeelKawnMod
             }
             catch (Exception ex)
             {
-                Logger.LogError($"Error connecting to Twitch: {ex.Message}");
+                modLogger.LogError($"Error connecting to Twitch: {ex.Message}");
             }
         }
 
         private void SetLogLevel(string level)
         {
-            // BepInEx Logger is Info by default; advanced log routing would require custom logger
-            Logger.LogInfo($"Log level set to: {level}");
+            modLogger.LogInfo($"Log level set to: {level}");
         }
 
         private HashSet<string> bannedUsers = new HashSet<string>();
+
         private void HandleChatCommand(string username, string message)
         {
             var parts = message.Trim().Split(' ', 2);
             var cmd = parts[0].ToLower();
             var arg = parts.Length > 1 ? parts[1] : "";
-            // Admin/moderator commands (simple example: only allow from 'admin' user)
-            if (username == "admin")
+
+            // Admin/moderator commands
+            if (username == "admin" || username == Config.TryGetEntry("TwitchUser", "Channel")?.Value)
             {
                 switch (cmd)
                 {
                     case "!kick":
-                        Logger.LogInfo($"[Admin] Kicked user: {arg}");
-                        // Implement kick logic (e.g., remove from player list)
+                        modLogger.LogInfo($"[Admin] Kicked user: {arg}");
                         break;
                     case "!ban":
                         bannedUsers.Add(arg);
-                        Logger.LogInfo($"[Admin] Banned user: {arg}");
+                        modLogger.LogInfo($"[Admin] Banned user: {arg}");
                         break;
                     case "!reset":
-                        Logger.LogInfo("[Admin] Resetting world state...");
-                        // Implement reset logic (clear state, reload, etc.)
+                        modLogger.LogInfo("[Admin] Resetting world state...");
                         break;
                     case "!announce":
-                        Logger.LogInfo($"[Admin Announcement]: {arg}");
+                        modLogger.LogInfo($"[Admin Announcement]: {arg}");
                         break;
                 }
             }
+
+            // Ignore banned users
             if (bannedUsers.Contains(username))
             {
-                Logger.LogInfo($"[Twitch] Ignoring command from banned user: {username}");
+                modLogger.LogInfo($"[Twitch] Ignoring command from banned user: {username}");
                 return;
             }
+
+            // Process player commands
             switch (cmd)
             {
                 case "!join":
                     var code = playerManager.RegisterPlayer(username);
-                    Logger.LogInfo($"[Twitch] {username} joined. Code: {code}");
+                    modLogger.LogInfo($"[Twitch] {username} joined. Code: {code}");
                     break;
                 case "!move":
                     playerManager.QueueAction(username, "move", arg.Split(' '));
-                    Logger.LogInfo($"[Twitch] {username} moves {arg}");
+                    modLogger.LogInfo($"[Twitch] {username} moves {arg}");
                     playerManager.ProcessActions();
                     break;
                 case "!farm":
                     playerManager.QueueAction(username, "farm", Array.Empty<string>());
-                    Logger.LogInfo($"[Twitch] {username} farms");
+                    modLogger.LogInfo($"[Twitch] {username} farms");
                     playerManager.ProcessActions();
                     break;
                 case "!build":
                     playerManager.QueueAction(username, "build", Array.Empty<string>());
-                    Logger.LogInfo($"[Twitch] {username} builds");
+                    modLogger.LogInfo($"[Twitch] {username} builds");
                     playerManager.ProcessActions();
                     break;
                 case "!fight":
                     playerManager.QueueAction(username, "fight", Array.Empty<string>());
-                    Logger.LogInfo($"[Twitch] {username} fights");
+                    modLogger.LogInfo($"[Twitch] {username} fights");
                     playerManager.ProcessActions();
                     break;
                 case "!respawn":
                     playerManager.QueueAction(username, "respawn", Array.Empty<string>());
-                    Logger.LogInfo($"[Twitch] {username} respawns");
+                    modLogger.LogInfo($"[Twitch] {username} respawns");
                     playerManager.ProcessActions();
                     break;
                 case "!found":
                     var foundMsg = villageManager.FoundVillage(username, arg);
-                    Logger.LogInfo($"[Twitch] {foundMsg}");
+                    modLogger.LogInfo($"[Twitch] {foundMsg}");
                     break;
                 case "!joinvillage":
                     var joinMsg = villageManager.JoinVillage(username, arg);
-                    Logger.LogInfo($"[Twitch] {joinMsg}");
+                    modLogger.LogInfo($"[Twitch] {joinMsg}");
                     break;
                 case "!choose":
                     var profMsg = professionManager.ChooseProfession(username, arg);
-                    Logger.LogInfo($"[Twitch] {profMsg}");
+                    modLogger.LogInfo($"[Twitch] {profMsg}");
                     break;
                 case "!event":
                     var eventMsg = seasonalEvents.TriggerEvent(arg, username);
-                    Logger.LogInfo($"[Twitch] {eventMsg}");
+                    modLogger.LogInfo($"[Twitch] {eventMsg}");
                     break;
-                // Add more commands as needed
+                case "!nft":
+                    var nftFile = blockchainManager.MintVillagerNFT(username, playerManager.GetVillagerId(username), new { });
+                    modLogger.LogInfo($"[Twitch] {username} minted NFT: {nftFile}");
+                    break;
+                case "!help":
+                    modLogger.LogInfo($"[Twitch] {username} requested help. Available: !join, !move, !farm, !build, !fight, !respawn, !found, !joinvillage, !choose, !event, !nft");
+                    break;
             }
+        }
+
+        private void Update()
+        {
+            // Process queued actions each frame
+            playerManager?.ProcessActions();
         }
     }
 }

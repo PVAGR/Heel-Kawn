@@ -1,0 +1,37 @@
+```
+# Build artifacts
+*.obj
+*.exe
+*.dll
+*.so
+*.a
+*.out
+
+# Dependencies
+packages/
+lib/
+bin/
+obj/
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# User-specific files
+.vs/
+*.userprefs
+*.suo
+*.user
+*.aps
+
+# Configuration files that might contain secrets
+app.config
+web.config
+
+# OS generated files
+.DS_Store
+Thumbs.db
+```

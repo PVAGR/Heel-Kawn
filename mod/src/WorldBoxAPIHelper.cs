@@ -1,40 +1,4 @@
 // WorldBoxAPIHelper.cs
-<<<<<<< HEAD
-// Stub for interacting with the WorldBox game world for player actions.
-// This file is necessary as a bridge between multiplayer player actions and affecting the actual game world.
-
-using System;
-
-namespace HeelKawnPlugin
-{
-    public static class WorldBoxAPIHelper
-    {
-        public static void MovePlayer(PlayerData player, string direction)
-        {
-            // Placeholder logic for moving in 2D
-            WBVector2 delta = direction?.ToLower() switch
-            {
-                "north" => new WBVector2(0, 1),
-                "south" => new WBVector2(0, -1),
-                "east"  => new WBVector2(1, 0),
-                "west"  => new WBVector2(-1, 0),
-                _       => new WBVector2(0, 0)
-            };
-            player.Position = new WBVector2(player.Position.x + delta.x, player.Position.y + delta.y);
-            Logger.Info($"[WorldBoxAPIHelper] {player.Username} moved {direction} to {player.Position}");
-        }
-
-        public static void Pray(PlayerData player)
-        {
-            Logger.Info($"[WorldBoxAPIHelper] {player.Username} prayed.");
-            // No-op for now
-        }
-
-        public static void Farm(PlayerData player)
-        {
-            Logger.Info($"[WorldBoxAPIHelper] {player.Username} farmed.");
-            // No-op for now
-=======
 // Provides helper methods for interacting with WorldBox via reflection.
 // Spawns actors, moves them, and sets names for integration with Heel-Kawn mod.
 
@@ -107,6 +71,7 @@ namespace HeelKawnMod
             actors[actorId].Y = 0;
             Console.WriteLine($"[WorldBoxAPIHelper] Actor {actorId} respawned at (0,0).");
         }
+
         public class Actor
         {
             public string Id { get; set; }
@@ -115,7 +80,6 @@ namespace HeelKawnMod
             public int X { get; set; }
             public int Y { get; set; }
             // Add more persistent state as needed (resources, build count, etc.)
->>>>>>> 14731da (Auto-connect heelkawn bot to pvagames Twitch channel; config and logging improvements)
         }
     }
 }
